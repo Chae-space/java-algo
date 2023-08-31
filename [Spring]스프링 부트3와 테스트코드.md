@@ -74,7 +74,7 @@ JUnit은 **자바 언어를 위한 단위 테스트 프레임워크**이다. 단
 
 #### JUnit으로 단위 테스트 코드 만들기
 
-(1단계) [src->test->java] 폴더에 JUnitTest.java 파일을 생성하고 코드를 따라해보자.
+**<1단계>** [src->test->java] 폴더에 JUnitTest.java 파일을 생성하고 코드를 따라해보자.
 ```java
 public class JUnitTest {
 @DisplayName("1+2는 3이다")   //테스트 이름
@@ -88,12 +88,32 @@ public class JUnitTest {
    }
  }
 ```
-- @DisplayName 어노테이션은 테스트 이름을 명시한다. @Test 어노테이션을 붙인 메소드는 테스트를 수행하는 메소드가 된다. JUnit은 테스트끼리 영향을 주지 않도록 각 테스트를 실행할 떄마다 테스트를 위한 실행 객체를 만들고 테스트가 종료되면 실행 객체를 삭제한다. 
-- junitTest() 메소드에 작성한 테스트 코드 설명을 하자면, 이 테스트에서는 JUnit에서 제공하는 검증 메소드인 assertEquals()로 a+b와 sum의 값이 같은지 확인한다. 이를 통해 assertEquals() 메소드의 사용법을 자연스럽게 알았을 것이다. assertEquals() 메소드의 첫번째 인수에는 기대하는 값, 두번째 인수에는 실제로 검증할 값을 넣어준다.
+- **@DisplayName** 어노테이션은 테스트 이름을 명시한다.
+- **@Test** 어노테이션을 붙인 메소드는 테스트를 수행하는 메소드가 된다. JUnit은 테스트끼리 영향을 주지 않도록 각 테스트를 실행할 떄마다 테스트를 위한 실행 객체를 만들고 테스트가 종료되면 실행 객체를 삭제한다. 
+- **junitTest() 메소드**에 작성한 테스트 코드 설명을 하자면, 이 테스트에서는 JUnit에서 제공하는 검증 메소드인 assertEquals()로 a+b와 sum의 값이 같은지 확인한다. 이를 통해 assertEquals() 메소드의 사용법을 자연스럽게 알았을 것이다. assertEquals() 메소드의 첫번째 인수에는 기대하는 값, 두번째 인수에는 실제로 검증할 값을 넣어준다.
 
 
 
+**<2단계>** 실제로 테스트 코드가 잘 동작하는지 확인하려면 재생버튼(![image](https://github.com/Chae-space/java-algo/assets/90403366/001dd0a4-840e-45c2-9c50-2b7b7f10c4cd))을
+ 클릭하고 [Run 'JunitTest']를 클릭해서 테스트를 실행해보자.
+테스트가 끝나면 콘솔창에 테스트 성공/실패 결과가 출력된다. 실패했을 경우엔 원인이 로그로 뜨므로 그부분을 수정하려고 노력해야 한다.
 
 
+ex) 실패하는 테스트 코드의 예
+```java
+public class JUnitTest {
+@DisplayName("1 + 3는 4이다")
+    @Test
+    public void junitFailedTest() {
+        int a = 1;
+        int b = 3;
+        int sum = 3;
+
+        Assertions.assertEquals(a + b, sum);  //실패하는 케이스
+    }
+}
+```
+
+-> 실패용 테스트 케이스를 실행하면 테스트가 실패했다는 표시와 함께 기댓값과 실제로 받은 값을 비교해서 알려준다. 이렇게 JUnit은 테스트 케이스가 하나라도 실패하면 전체 테스트를 실패한 것으로 보여준다.
 
 
