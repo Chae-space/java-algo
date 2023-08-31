@@ -12,7 +12,7 @@
 
 테스트 코드에도 다양한 패턴이 있다. 여기서 사용 **given-when-then** 패턴은 테스트 코드를 세 단계로 구분해 작성하는 방식을 말한다. **(1)given**은 테스트 실행을 준비하는 단계, **(2)when**은 테스트를 진행하는 단계, **(3)then**은 테스트 결과를 검증하는 단계이다. 예를 들어 새로운 메뉴를 저장하는 코드를 테스트한다고 가정했을 때 테스트 코드를 다음과 같이 given, when, then을 적용해 구현한다.
 
-ex) given-when-then 패턴의 테스트 코드 예
+*ex) given-when-then 패턴의 테스트 코드 예*
 ```java
 @DisplayName("새로운 메뉴를 저장한다.")
 @Test
@@ -71,7 +71,10 @@ JUnit은 **자바 언어를 위한 단위 테스트 프레임워크**이다. 단
 - 사용 방법이 단순, 테스트 코드 작성 시간이 적음
 - 자동 실행, 자체 결과를 확인하고 즉각적인 피드백을 제공
 
-
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 #### JUnit으로 단위 테스트 코드 만들기
 
 **<1단계>** [src->test->java] 폴더에 JUnitTest.java 파일을 생성하고 코드를 따라해보자.
@@ -99,7 +102,7 @@ public class JUnitTest {
 테스트가 끝나면 콘솔창에 테스트 성공/실패 결과가 출력된다. 실패했을 경우엔 원인이 로그로 뜨므로 그부분을 수정하려고 노력해야 한다.
 
 
-ex) 실패하는 테스트 코드의 예
+*ex) 실패하는 테스트 코드의 예*
 ```java
 public class JUnitTest {
 @DisplayName("1 + 3는 4이다")
@@ -116,4 +119,64 @@ public class JUnitTest {
 
 -> 실패용 테스트 케이스를 실행하면 테스트가 실패했다는 표시와 함께 기댓값과 실제로 받은 값을 비교해서 알려준다. 이렇게 JUnit은 테스트 케이스가 하나라도 실패하면 전체 테스트를 실패한 것으로 보여준다.
 
+
+#### JUnit 어노테이션 설명
+
+```java
+import org.junit.jupiter.api.*;
+
+public class JUnitCycleTest {
+
+    @BeforeAll  //전체 테스트를 시작하기 전에 1회 실행하므로 메소드는 static으로 선언
+    static void beforeAll() {
+        System.out.println("@BeforeAll");
+    }
+
+    @BeforeEach  //테스트 케이스를 시작하기 전마다 실행
+    public void beforeEach() {
+        System.out.println("@BeforeEach");
+    }
+
+    @Test
+    public void test1() {
+        System.out.println("test1");
+    }
+
+    @Test
+    public void test2() {
+        System.out.println("test2");
+    }
+
+    @Test
+    public void test3() {
+        System.out.println("test3");
+    }
+
+    @AfterAll   //전체 테스트를 마치고 종료하기 전에 1회 실행하므로 메소드는 static으로 선언
+    static void afterAll() {
+        System.out.println("@AfterAll");
+    }
+
+    @AfterEach
+    public void afterEach() {
+        System.out.println("@AfterEach");
+    }
+}
+```
+
+- @BeforeAll
+\
+전체 테스트를 시작하기 전에 처음으로 한 번만 실행한다. 예를 들어 데이터베이스를 연결해야 하거나 테스트 환경을 초기화할 떄 사용된다. 이 어노테이션은 전체 테스트 실행 주기에서 한 번만 호출되어야 하기 때문에 메소들ㄹ static으로 선언해야 한다.
+
+
+
+- @BeforeEach
+\
+
+테스트 케이스를 시작하기 전에 매번 실행한다. 예를 들어 테스트 메소드에서 사용하는 객체를 초기화하거나 테스트에 필요한 값을 미리 넣을 때 사용할 수 있다. 각 인스턴스에 대해 메소드를 호출해야 하므로 메소드는 static이 아니어야 한다.
+
+
+- @AferAll
+\
+전체 테스트를 마치고 종료하기 전에 한 번만 실행한다. 예를 들어 데이터베이스 연결을 종료할 때나 공통적으로 사용하는 자원을 해제할 때 사용할 수 있다. 전체 테스트 실행 주기에서 한 번만 호출되어야 하므로 메소드를 static으로 선언해야 한다.
 
